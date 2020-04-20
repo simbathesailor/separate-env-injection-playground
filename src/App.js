@@ -6,7 +6,7 @@ import * as AllTheEnvs from "./consts";
 function App() {
   console.log(process.env.NODE_ENV);
 
-  console.log(process.env["REACT_APP_HRX_API_SERVER_URL"]);
+  console.log(process.env["REACT_APP_PARAM_THREE"]);
   // if(process.env.NODE_ENV === "MY_DESIRED") {
 
   // }
