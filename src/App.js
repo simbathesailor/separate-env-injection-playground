@@ -1,8 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import * as AllTheEnvs from "./consts";
 
 function App() {
+  console.log(process.env.NODE_ENV);
+
+  console.log(process.env["REACT_APP_HRX_API_SERVER_URL"]);
+  // if(process.env.NODE_ENV === "MY_DESIRED") {
+
+  // }
+  // console.log("All the envs", JSON.stringify(AllTheEnvs, null, 2));
   return (
     <div className="App">
       <header className="App-header">
