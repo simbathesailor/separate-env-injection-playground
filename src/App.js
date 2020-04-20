@@ -1,6 +1,7 @@
 import * as React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { SOMEPARAM } from "./consts";
 // import * as AllTheEnvs from "./consts";
 
 // const getTHreeParamValue = () => {
@@ -9,9 +10,12 @@ import "./App.css";
 //     return process.env["REACT_APP_PARAM_THREE"];
 //   };
 // };
+
+console.log("SOMEPARAM outside", SOMEPARAM);
+
 function App() {
   console.log(process.env.NODE_ENV);
-
+  console.log("SOMEPARAM inside", SOMEPARAM);
   console.log(process.env["REACT_APP_PARAM_THREE"]);
   // if(process.env.NODE_ENV === "MY_DESIRED") {
 
