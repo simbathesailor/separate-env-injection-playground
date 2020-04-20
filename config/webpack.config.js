@@ -403,6 +403,17 @@ module.exports = function(webpackEnv) {
                       }
                     }
                   ]
+                  // ["minify-dead-code-elimination", { optimizeRawSize: false }]
+                ],
+                overrides: [
+                  {
+                    presets: [
+                      "minify",
+                      {
+                        // deadcode: false
+                      }
+                    ]
+                  }
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
