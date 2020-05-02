@@ -1,5 +1,8 @@
 const path = require("path");
 const glob = require("glob");
+const babelParser = require("@babel/parser");
+const BabelTypeModule = require("@babel/types");
+const traverse = require("@babel/traverse").default;
 
 const fs = require("fs");
 
@@ -26,6 +29,30 @@ Files.forEach(fileName => {
   const read = fs.readFileSync(pathToCheckAndUpdate, "utf8");
 
   source = read;
+
+  // Trial code start
+  const extension = path.extname(pathToCheckAndUpdate);
+  console.log("extension", extension);
+
+  if (extension === ".js") {
+    const ast = babelParser.parse(source, {
+      sourceType: "module",
+      plugins: ["jsx"]
+    });
+
+    traverse(ast, {
+      enter(path) {
+        if (BabelTypeModule.isStringLiteral(path.node)) {
+          console.log(`String is: ==> ${path.node.value}`);
+
+          const MM = BabelTypeModule.stringLiteral();
+        }
+      }
+    });
+    console.log("ast ===>", ast);
+  }
+
+  // Tria; code end
   //
   // t.split(/\$\$_INTERNAL__|"\$\$_INTERNAL__"/)
   // t.split(/\$\$_INTERNAL__/)
@@ -85,6 +112,7 @@ Files.forEach(fileName => {
     )
     .result.join("");
   if (changed) {
+    console.log("changed done to the ", pathToCheckAndUpdate);
     fs.writeFileSync(pathToCheckAndUpdate, source);
   }
 });
