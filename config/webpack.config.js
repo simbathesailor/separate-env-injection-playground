@@ -235,7 +235,8 @@ module.exports = function(webpackEnv) {
               ascii_only: true
             }
           },
-          sourceMap: shouldUseSourceMap
+          sourceMap: shouldUseSourceMap,
+          cache: !isEnvProduction
         }),
         // This is only used in production mode
         new OptimizeCSSAssetsPlugin({
@@ -348,18 +349,11 @@ module.exports = function(webpackEnv) {
 
           use: [
             {
-              // options: {
-              //   cache: true,
-              //   formatter: require.resolve("react-dev-utils/eslintFormatter"),
-              //   eslintPath: require.resolve("eslint"),
-              //   resolvePluginsRelativeTo: __dirname
-              // },
-              // loader: require.resolve("eslint-loader")
               options: {
                 exclude: ["NODE_ENV", "REACT_APP_APPNAME", "PUBLIC_URL"],
                 plugins: ["jsx"]
               },
-              loader: path.join(__dirname, "./loader.js")
+              loader: "envvarprep-loader"
             }
           ],
           include: paths.appSrc
@@ -385,7 +379,7 @@ module.exports = function(webpackEnv) {
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: paths.appSrc,
-              loader: path.join(__dirname, "../../babel-loader"),
+              loader: "babel-loader",
               options: {
                 customize: require.resolve(
                   "babel-preset-react-app/webpack-overrides"
