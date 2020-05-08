@@ -4004,10 +4004,10 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
 
-envvarprep-loader@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/envvarprep-loader/-/envvarprep-loader-0.2.1.tgz#6c1afa53b1068ec3ab649f8a7e39cbe14ee02dae"
-  integrity sha512-jEnE4ENlO85ZztqequzYQA8pAPmrTnr5FgI4LidMXboKLeKpaEfH4F2yTHH6r79bBqBV0GTzuMDDrFbDbBrERg==
+envvarprep-loader@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/envvarprep-loader/-/envvarprep-loader-0.2.2.tgz#5a15e006705d2d1d00d5e24e993d88c2eaad4321"
+  integrity sha512-6WHRTRLooS94yjCdFMfSCXahCEdhqBJTvFf0UICm8NSnaFt/CAGdXfmnjL3SR51xgn/SO17U525UXOmNhTbK9A==
 
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"

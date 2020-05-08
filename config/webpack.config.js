@@ -351,7 +351,8 @@ module.exports = function(webpackEnv) {
             {
               options: {
                 exclude: ["NODE_ENV", "REACT_APP_APPNAME", "PUBLIC_URL"],
-                plugins: ["jsx"]
+                plugins: ["jsx"],
+                enable: isEnvProduction
               },
               loader: "envvarprep-loader"
             }
