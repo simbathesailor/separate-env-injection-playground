@@ -1,7 +1,8 @@
 import * as React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { SOMEPARAM } from "./consts";
+import { SOMEPARAM, V1 } from "./consts";
+console.log("🚀 ~ file: App.js ~ line 5 ~ V1", V1);
 
 console.log("SOMEPARAM outside", SOMEPARAM);
 
