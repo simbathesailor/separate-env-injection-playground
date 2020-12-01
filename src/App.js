@@ -6,11 +6,46 @@ console.log("🚀 ~ file: App.js ~ line 5 ~ V1", V1);
 
 console.log("SOMEPARAM outside", SOMEPARAM);
 
+const { PUBLIC_URL_TWO } = process.env;
+console.log("🚀 ~ file: App.js ~ line 10 ~ PUBLIC_URL_TWO", PUBLIC_URL_TWO);
+
+const { REACT_APP_PARAM_TWO: hello } = process.env;
+console.log("🚀 ~ file: App.js ~ line 12 ~ hello", hello);
+
+// const { env } = process;
+
+// const { REACT_APP_PARAM_THREE: threeVar } = env;
+// console.log("🚀 ~ file: App.js ~ line 18 ~ threeVar", threeVar);
+
+// var PUBLIC_URL_TWO = process.env.PUBLIC_URL_TWO;
+// console.log("🚀 ~ file: App.js ~ line 10 ~ PUBLIC_URL_TWO", PUBLIC_URL_TWO);
+// var hello = process.env.REACT_APP_PARAM_TWO;
+// console.log("🚀 ~ file: App.js ~ line 12 ~ hello", hello);
+// var _process = process,
+//   env = _process.env;
+// var threeVar = env.REACT_APP_PARAM_THREE;
+// console.log("🚀 ~ file: App.js ~ line 18 ~ threeVar", threeVar);
+
+// eslint-disable-next-line no-undef
+console.log("My Secret in App.js ==>", MY_SECRET_VALUE);
+/**
+ * var PUBLIC_URL_TWO = process.env.PUBLIC_URL_TWO;
+console.log("🚀 ~ file: App.js ~ line 10 ~ PUBLIC_URL_TWO", PUBLIC_URL_TWO);
+var hello = process.env.REACT_APP_PARAM_TWO;
+console.log("🚀 ~ file: App.js ~ line 12 ~ hello", hello);
+var _process = process,
+    env = _process.env;
+var threeVar = env.REACT_APP_PARAM_THREE;
+console.log("🚀 ~ file: App.js ~ line 18 ~ threeVar", threeVar);
+ */
+
 function App() {
   console.log(process.env.NODE_ENV);
   console.log("SOMEPARAM inside", SOMEPARAM);
 
   console.log(process.env["REACT_APP_PARAM_THREE"]);
+
+  console.log(`Hello I am template literal ${process.env.REACT_APP_PARAM_TWO}`);
 
   return (
     <div className="App">

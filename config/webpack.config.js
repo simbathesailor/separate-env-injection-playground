@@ -52,6 +52,30 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
+
+console.log("check it=======");
+
+const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
+
+console.log({
+  // ...env.stringified,
+  MY_SECRET_VALUE: JSON.stringify("HOLA My SECRET VALUE"),
+  "process.env": (() => {
+    return Object.keys(env.raw).reduce((acc, key) => {
+      if (key === "NODE_ENV" || key === "PUBLIC_URL") {
+        acc[key] = JSON.stringify(env.raw[key]);
+      } else {
+        acc[key] = JSON.stringify(
+          "$$_INTERNAL__process.env." +
+            key +
+            `"MATH_RANDOM_START".concat(Math.random(),"MATH_RANDOM_END$$_INTERNAL__"`
+        );
+      }
+      return acc;
+    }, {});
+  })(),
+});
+console.log("see up ======");
 module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === "development";
   const isEnvProduction = webpackEnv === "production";
@@ -328,38 +352,40 @@ module.exports = function (webpackEnv) {
 
         // First, run the linter.
         // It's important to do this before Babel processes the JS.
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          enforce: "pre",
-          use: [
-            {
-              options: {
-                cache: true,
-                formatter: require.resolve("react-dev-utils/eslintFormatter"),
-                eslintPath: require.resolve("eslint"),
-                resolvePluginsRelativeTo: __dirname,
-              },
-              loader: require.resolve("eslint-loader"),
-            },
-          ],
-          include: paths.appSrc,
-        },
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          enforce: "pre",
+        // {
+        //   test: /\.(js|mjs|jsx|ts|tsx)$/,
+        //   enforce: "pre",
+        //   use: [
+        //     {
+        //       options: {
+        //         cache: true,
+        //         formatter: require.resolve("react-dev-utils/eslintFormatter"),
+        //         eslintPath: require.resolve("eslint"),
+        //         resolvePluginsRelativeTo: __dirname,
+        //       },
+        //       loader: require.resolve("eslint-loader"),
+        //     },
+        //   ],
+        //   include: paths.appSrc,
+        // },
+        // Below is see envvar-preploader section, remove comment to enable this
+        // and comment the define plugin part below MY_SECRET_VALUE: JSON.stringify("HOLA My SECRET VALUE"),
+        // {
+        //   test: /\.(js|mjs|jsx|ts|tsx)$/,
+        //   enforce: "pre",
 
-          use: [
-            {
-              options: {
-                exclude: ["NODE_ENV", "REACT_APP_APPNAME", "PUBLIC_URL"],
-                plugins: ["jsx"],
-                enable: true,
-              },
-              loader: "../envvarprep-loader/dist/index.js",
-            },
-          ],
-          include: paths.appSrc,
-        },
+        //   use: [
+        //     {
+        //       options: {
+        //         exclude: ["NODE_ENV", "REACT_APP_APPNAME", "PUBLIC_URL"],
+        //         plugins: ["jsx"],
+        //         enable: true,
+        //       },
+        //       loader: "../envvarprep-loader/dist/index.js",
+        //     },
+        //   ],
+        //   include: paths.appSrc,
+        // },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -562,6 +588,7 @@ module.exports = function (webpackEnv) {
             : undefined
         )
       ),
+
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
@@ -582,7 +609,46 @@ module.exports = function (webpackEnv) {
       // It is absolutely essential that NODE_ENV is set to production
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
-      new webpack.DefinePlugin(env.stringified),
+      new webpack.DefinePlugin({
+        ...env.stringified,
+        MY_SECRET_VALUE: JSON.stringify("HOLA My SECRET VALUE"),
+        "process.env": (() => {
+          return Object.keys(env.raw).reduce((acc, key) => {
+            if (
+              ["NODE_ENV", "PUBLIC_URL"].includes(key) &&
+              ![
+                "WDS_SOCKET_HOST",
+                "WDS_SOCKET_PATH",
+                "WDS_SOCKET_PORT",
+              ].includes(key)
+            ) {
+              acc[key] = JSON.stringify(env.raw[key]);
+            } else if (
+              ![
+                "WDS_SOCKET_HOST",
+                "WDS_SOCKET_PATH",
+                "WDS_SOCKET_PORT",
+              ].includes(key)
+            ) {
+              console.log(
+                "🚀 ~ file: webpack.config.js ~ line 625 ~ returnObject.keys ~ key",
+                key
+              );
+
+              // "$$_INTERNAL__process.env.REACT_APP_PARAM_TWOMATH_RANDOM_START".concat(
+              //   Math.random(),
+              //   "MATH_RANDOM_END$$_INTERNAL__"
+
+              // "$$_INTERNAL__process.env.REACT_APP_PARAM_TWOMATH_RANDOM_START".concat(Math.random(),"MATH_RANDOM_END$$_INTERNAL__"
+              // '$$_INTERNAL__process.env.REACT_APP_PARAM_ONEMATH_RANDOM_START".concat(Math.random(),"MATH_RANDOM_END$$_INTERNAL__'
+              acc[
+                key
+              ] = `"$$_INTERNAL__process.env.${key}MATH_RANDOM_START".concat(Math.random(),"MATH_RANDOM_END$$_INTERNAL__")`;
+            }
+            return acc;
+          }, {});
+        })(),
+      }),
       // This is necessary to emit hot updates (currently CSS only):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       // Watcher doesn't work well if you mistype casing in a path so we use
